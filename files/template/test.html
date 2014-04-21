@@ -1,0 +1,62 @@
+<!doctype html>
+<meta charset="utf-8">
+<head>
+	<title>Styleguide</title>
+	<link rel="stylesheet" href="static/prism/prism.css">
+	<link rel="stylesheet" href="../css/style.css">
+	<style>
+		body {
+			margin: 0 auto;
+			max-width: 800px;
+			padding: 0 10px;
+		}
+
+		iframe {
+			border: 1px solid #efefef;
+			width: 100%;
+		}
+
+		h2 {
+			border-bottom: 1px solid #555;
+			color: #555;
+			margin: 10px 0 20px;
+			padding-bottom: 5px;
+		}
+
+		h3 {
+			color: #555;
+			font-size: 14px;
+			line-height: 1;
+			margin: 20px 0 0 0;
+		}
+
+		pre[class*="language-"] {
+			margin: 0 0 20px 0;
+			padding: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Styleguide</h1>
+
+	{% for style in styleObjects['module'] %}
+	<h2>{{ style.params.name }}</h2>
+	{{ style.description }}
+	{{ style.markup }}
+
+	<h3>Markup</h3>
+	<pre><code class="language-markup">{{ style.markup | escape }}</code></pre>
+
+	{% for modifier in style.modifiers %}
+	<h2>{{ style.params.name }} (alternative)</h2>
+	{{ modifier.description }}
+	{{ modifier.markup }}
+
+	<h3>Markup</h3>
+	<pre><code class="language-markup">{{ modifier.markup | escape }}</code></pre>
+	{% endfor %}
+	{% endfor %}
+
+	<script src="static/prism/prism.js"></script>
+</body>
