@@ -1,7 +1,5 @@
-Styleguider
+Stardoc
 ===========
-
-TODO: Find a better name.
 
 Test usage:
 * Install NodeJS
