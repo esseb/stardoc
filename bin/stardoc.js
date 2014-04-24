@@ -25,14 +25,19 @@ function handleArguments(env) {
   // console.log('LOCAL PACKAGE.JSON:', env.modulePackage);
   // console.log('CLI PACKAGE.JSON', require('../package'));
 
+  if (!env.configPath) {
+    console.log('No stardoc config file found');
+    process.exit(1);
+  }
+
   // Read the stardoc config file.
   var data = require(env.configPath);
 
   // TODO: Warn if anything is missing.
-  var styleFolder = path.normalize(data.styleFolder);
-  var markupFolder = path.normalize(data.markupFolder);
-  var outputFolder = path.normalize(data.outputFolder);
-  var templateFolder = path.normalize(data.templateFolder);
+  var styleFolder = path.join(env.configBase, data.styleFolder);
+  var markupFolder = path.join(env.configBase, data.markupFolder);
+  var outputFolder = path.join(env.configBase, data.outputFolder);
+  var templateFolder = path.join(env.configBase, data.templateFolder);
   var styleIgnore = data.styleIgnore;
 
   stardoc.run({
@@ -42,4 +47,8 @@ function handleArguments(env) {
     templateFolder: templateFolder,
     styleIgnore: styleIgnore
   });
+
+  // TODO: Call publish() when styleObjects is ready.
+  var template = require(templateFolder + '/publish.js');
+  template.publish({});
 }
