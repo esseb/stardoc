@@ -1,0 +1,7 @@
+{
+  "styleFolder": "less",
+  "markupFolder": "markup",
+  "outputFolder": "styleguide",
+  "templateFolder": "template",
+  "styleIgnore": "_normalize.less"
+}
