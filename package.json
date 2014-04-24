@@ -1,9 +1,9 @@
 {
-  "name": "styleguider",
+  "name": "stardoc",
   "version": "0.0.0",
   "description": "",
   "bin": {
-    "styleguider": "styleguider.js"
+    "stardoc": "stardoc.js"
   },
   "directories": {
     "test": "test"

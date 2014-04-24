@@ -1,21 +1,19 @@
 Stardoc
-===========
+=======
 
 Test usage:
 * Install NodeJS
-* Navigate to the `styleguider` folder
+* Navigate to the `stardoc` folder
 * `npm install`
-* `node .\bin\styleguider.js`
-* The generated styleguide is in the `files/styleguide` folder
-
-All paths are hardcoded at the moment. To use other paths edit `styleguider.js`.
+* `node .\bin\stardoc.js`
+* Currently nothing gets generated, but you can look at the lovely debug output
 
 Add your own CSS comments:
-* Navigate to the `styleguider/files` folder
+* Navigate to the `files` folder
 * `npm install`
 * Add/edit `.less` files in the `less` folder
 * `grunt less` or `grunt watch` to compile the less files
-* Execute `styleguider.js` again for an updated styleguide
+* Execute `stardoc.js` again
 
 Styleguide comments begin with /**. The first string inside the comment block is
 the style's description (markdown.)
@@ -30,9 +28,3 @@ the moment are `name`, `markup`, `category`, and `modifies`:
   Whatever suits your need.
 * `modifies` is used for styles that modifies another style object. The name
   must match a `name` parameter of style object with the same category.
-
-Edit the styleguide template:
-The styleguide template in `files/template` uses the
-[nunjucks templating engine](https://github.com/mozilla/nunjucks). Currently
-only one template file is supported in which all style objects must be listed.
-Ideally users should be able to generate one file per category if they wish.
