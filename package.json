@@ -16,8 +16,8 @@
   "devDependencies": {
     "walk": "^2.3.1",
     "lodash": "^2.4.1",
-    "mkdirp": "^0.3.5",
-    "ncp": "^0.5.1",
+    "mkdirp": "~0.4.0",
+    "ncp": "~0.5.1",
     "liftoff": "^0.9.8",
     "markdown": "^0.5.0"
   }

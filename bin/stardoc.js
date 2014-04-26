@@ -5,7 +5,8 @@ var _ = require('lodash');
 var fs = require('fs');
 var Liftoff = require('liftoff');
 var markdown = require('markdown').markdown;
-var path = require('path');
+var mkdirp = require('mkdirp');
+var ncp = require('ncp').ncp;
 var path = require('path');
 var walk = require('walk');
 
@@ -19,18 +20,6 @@ var cli = new Liftoff({
 cli.launch(handleArguments);
 
 function handleArguments(env) {
-  // console.log('LIFTOFF SETTINGS:', this);
-  // console.log('CLI OPTIONS:', env.argv);
-  // console.log('CWD:', env.cwd);
-  // console.log('LOCAL MODULES PRELOADED:', env.preload);
-  // console.log('EXTENSIONS RECOGNIZED:', env.validExtensions);
-  // console.log('SEARCHING FOR:', env.configNameRegex);
-  // console.log('FOUND CONFIG AT:', env.configPath);
-  // console.log('CONFIG BASE DIR:', env.configBase);
-  // console.log('YOUR LOCAL MODULE IS LOCATED:', env.modulePath);
-  // console.log('LOCAL PACKAGE.JSON:', env.modulePackage);
-  // console.log('CLI PACKAGE.JSON', require('../package'));
-
   if (!env.configPath) {
     console.log('No stardoc config file found');
     process.exit(1);
@@ -290,8 +279,8 @@ function categorizeStyleObjects(styleObjects) {
     });
   }
 
-  // Add style objects with @modifies parameters as children to the style object
-  // they modify.
+  // Add style objects with @modifies parameters as children to the style
+  // object they modify.
   styleObjects.forEach(function (style) {
     if (!style.params.modifies) {
       return true;  // continue
@@ -340,24 +329,12 @@ function run(options) {
 
   styleObjects = categorizeStyleObjects(styleObjects);
 
-  var template = require(options.templateFolder + '/publish.js');
-  template.publish(styleObjects, {});
-
-  /*
-  nunjucks.configure(options.templateFolder);
-
-  // TODO: Magic filenames or read from config JSON?
-  var styleguide = nunjucks.render('test.html', { styleObjects: styleObjects});
-  var outputFile = path.join(options.outputFolder, 'styleguide.html');
-
   // Create the output folder (if it does not already exist.)
   // TODO: Handle error. Use promise?
   // TODO: http://howtonode.org/promises
   mkdirp.sync(options.outputFolder);
 
   // Copy the template's static folder over.
-  // TODO: Use JSDoc style publish.js or something and move all markdowning,
-  // templating, static folder copying, etc. over to the end user.
   ncp(
       path.join(options.templateFolder, 'static'),
       path.join(options.outputFolder, 'static'),
@@ -366,12 +343,9 @@ function run(options) {
       console.error('Error copying over static folder.', err);
     }
   });
-  
-  // Write the generated styleguide.
-  fs.writeFile(outputFile, styleguide, 'utf8', function (err) {
-    if (err) {
-      console.error('Error writing styleguide.', err);
-    }
-  });
-  */
+
+  // Call the template's publish function.
+  var template = require(options.templateFolder + '/publish.js');
+  template.publish(
+      styleObjects, options.outputFolder, options.templateOptions);
 };
