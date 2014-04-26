@@ -48,13 +48,13 @@
 	<h3>Markup</h3>
 	<pre><code class="language-markup">{{ style.markup | escape }}</code></pre>
 
-	{% for modifier in style.modifiers %}
+	{% for child in style.children %}
 	<h2>{{ style.params.name }} (alternative)</h2>
-	{{ modifier.description }}
-	{{ modifier.markup }}
+	{{ child.description }}
+	{{ child.markup }}
 
 	<h3>Markup</h3>
-	<pre><code class="language-markup">{{ modifier.markup | escape }}</code></pre>
+	<pre><code class="language-markup">{{ child.markup | escape }}</code></pre>
 	{% endfor %}
 	{% endfor %}
 

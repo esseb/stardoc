@@ -235,10 +235,9 @@ function getMarkup(markupFolder, style) {
 }
 
 /**
- * Return an object with style objects sorted into categories, with modifiers
- * added as children to the style object they modify.
+ * Return an object with style objects sorted into categories and children.
  * TODO: Handle category + name collisions.
- * TODO: Log error if an object has both @modifies and @name.
+ * TODO: Log error if an object has both @parent and @name.
  *
  * @param {Aray} styleObjects
  * @return {Object}
@@ -252,7 +251,7 @@ function categorizeStyleObjects(styleObjects) {
       return true;  // continue
     }
 
-    if (style.params.modifies) {
+    if (style.params.parent) {
       // TODO: Log error
       return true;  // continue
     }
@@ -279,23 +278,23 @@ function categorizeStyleObjects(styleObjects) {
     });
   }
 
-  // Add style objects with @modifies parameters as children to the style
-  // object they modify.
+  // Add style objects with @parent parameters as children to their parent
+  // style object
   styleObjects.forEach(function (style) {
-    if (!style.params.modifies) {
+    if (!style.params.parent) {
       return true;  // continue
     }
 
     var parent = _.find(categories[style.params.category], function (element) {
-      return style.params.modifies === element.params.name;
+      return style.params.parent === element.params.name;
     });
 
     if (parent) {
-      if (!parent.modifiers) {
-        parent.modifiers = [];
+      if (!parent.children) {
+        parent.children = [];
       }
 
-      parent.modifiers.push(style);
+      parent.children.push(style);
     }
   });
 
