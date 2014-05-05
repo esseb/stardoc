@@ -1,11 +1,5 @@
 {
-  "name": "Stardoc Example Template 1",
-  "version": "0.0.0",
-  "description": "",
-  "main": "publish.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "description": "Stardoc Example Template",
   "author": "",
   "license": "MIT",
   "devDependencies": {
