@@ -10,10 +10,11 @@ var path = require('path');
  * @param {Object} templateOptions
  */
 exports.publish = function(styleObjects, outputFolder, templateOptions) {
-  var outputFile = path.join(outputFolder, 'styleguide.html');
+  console.log('styleObjects', styleObjects);
+  var outputFile = path.join(outputFolder, 'index.html');
 
   nunjucks.configure(__dirname);
-  var styleguide = nunjucks.render('test.html', { styleObjects: styleObjects});
+  var styleguide = nunjucks.render('index.html', { styleObjects: styleObjects});
   
   // Write the generated styleguide.
   fs.writeFile(outputFile, styleguide, 'utf8', function (err) {

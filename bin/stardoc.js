@@ -4,7 +4,6 @@
 var _ = require('lodash');
 var fs = require('fs');
 var Liftoff = require('liftoff');
-var markdown = require('markdown').markdown;
 var mkdirp = require('mkdirp');
 var ncp = require('ncp').ncp;
 var path = require('path');
@@ -123,8 +122,7 @@ function getMarkup(markupFolder, style) {
     return;
   }
 
-  var markupPath = path.join(
-      markupFolder, path.dirname(style.stylePath), style.params.markup);
+  var markupPath = path.join(markupFolder, style.path, style.params.markup);
   
   if (!fs.existsSync(markupPath)) {
     throw new Error(markupPath + ' does not exist');
