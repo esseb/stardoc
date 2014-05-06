@@ -122,7 +122,8 @@ function getMarkup(markupFolder, style) {
     return;
   }
 
-  var markupPath = path.join(markupFolder, style.path, style.params.markup);
+  var markupPath = path.join(
+      markupFolder, style.directory, style.params.markup);
   
   if (!fs.existsSync(markupPath)) {
     throw new Error(markupPath + ' does not exist');
