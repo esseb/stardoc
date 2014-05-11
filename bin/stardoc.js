@@ -123,7 +123,7 @@ function getMarkup(markupFolder, style) {
   }
 
   var markupPath = path.join(
-      markupFolder, style.directory, style.params.markup);
+      markupFolder, path.dirname(style.stylePath), style.params.markup);
   
   if (!fs.existsSync(markupPath)) {
     throw new Error(markupPath + ' does not exist');
@@ -138,8 +138,7 @@ function getMarkup(markupFolder, style) {
 
 /**
  * Return an object with style objects sorted into categories and children.
- * TODO: Handle category + name collisions.
- * TODO: Log error if an object has both @parent and @name.
+ * TODO: Warn if identical id.
  *
  * @param {Aray} styleObjects
  * @return {Object}
@@ -147,32 +146,27 @@ function getMarkup(markupFolder, style) {
 function categorizeStyleObjects(styleObjects) {
   var categories = {};
 
-  // Sort styleObjects into categories.
+  // Sort style objects into categories.
   styleObjects.forEach(function (style) {
-    if (!style.params.category) {
-      return true;  // continue
-    }
-
     if (style.params.parent) {
-      // TODO: Log error
-      return true;  // continue
+      return;
     }
 
-    if (!categories[style.params.category]) {
-      categories[style.params.category] = [];
+    if (!categories[style.category]) {
+      categories[style.category] = [];
     }
 
-    categories[style.params.category].push(style);
+    categories[style.category].push(style);
   });
 
   // Sort style objects in each category by name.
   for (var category in categories) {
     categories[category].sort(function (a, b) {
-      if (a.params.name < b.params.name) {
+      if (a.name < b.name) {
         return -1;
       }
 
-      if (a.params.name > b.params.name) {
+      if (a.name > b.name) {
         return 1;
       }
       
@@ -187,8 +181,8 @@ function categorizeStyleObjects(styleObjects) {
       return true;  // continue
     }
 
-    var parent = _.find(categories[style.params.category], function (element) {
-      return style.params.parent === element.params.name;
+    var parent = _.find(categories[style.category], function (element) {
+      return style.params.parent === element.name;
     });
 
     if (parent) {

@@ -21,8 +21,8 @@ exports.publish = function(styleObjects, outputFolder, templateOptions) {
   // Create example file for each module.
   styleObjects.module.forEach(function (module) {
     var modfile = nunjucks.render('module.html', {module: module});
-    var modpath = path.join(outputFolder, module.directory);
-    writeFile(modpath, module.params.id + '.html', modfile);
+    var modpath = path.join(outputFolder, module.category);
+    writeFile(modpath, module.name + '.html', modfile);
 
     // TODO: Generate example files for each child also.
   });

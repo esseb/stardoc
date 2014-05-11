@@ -11,10 +11,7 @@
   <h1>Styleguide</h1>
 
   {% for module in styleObjects['module'] %}
-    <h2>
-      {{ module.params.name }}
-      <a href="{{module.directory}}/{{module.params.id}}.html">#</a>
-    </h2>
+    <h2>{{ module.params.title }}</h2>
     {{ module.description }}
     {{ module.markup }}
 
@@ -22,7 +19,7 @@
     <pre><code class="language-markup">{{ module.markup | escape }}</code></pre>
 
     {% for child in module.children %}
-      <h2>{{ module.params.name }} (alternative)</h2>
+      <h2>{{ child.params.title }}</h2>
       {{ child.description }}
       {{ child.markup }}
 
