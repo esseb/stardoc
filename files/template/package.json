@@ -1,8 +1,0 @@
-{
-  "description": "Stardoc Example Template",
-  "author": "",
-  "license": "MIT",
-  "devDependencies": {
-    "nunjucks": "~1.0.4"
-  }
-}
