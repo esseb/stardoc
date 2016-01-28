@@ -94,6 +94,7 @@ function createStardocObject(stardocObject, options) {
     });
   }
 
+  object.id = options.id;
   object.title = options.title || null;
   object.description = options.description || null;
   object.markup = options.markup || null;
