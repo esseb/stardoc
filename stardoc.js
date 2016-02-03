@@ -32,6 +32,8 @@ function stardoc(options, cb) {
 
       var object = createStardoc(stardocBlocks);
       options.generator(object.children);
+
+      cb();
     });
   });
 }
