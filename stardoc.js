@@ -43,9 +43,8 @@ function createStardoc(stardocBlocks) {
 
   stardocBlocks.forEach(block => {
     createStardocObject(stardocObject, {
-      id: block.parameters.id,
-      title: block.parameters.title,
       description: block.description,
+      parameters: block.parameters,
       markup: block.markup
     });
   });
@@ -61,7 +60,7 @@ function createStardoc(stardocBlocks) {
  * @param {Object} options
  */
 function createStardocObject(stardocObject, options) {
-  var tokens = options.id.split('/');
+  var tokens = options.parameters.id.split('/');
 
   var object = stardocObject;
   for (var i = 0; i < tokens.length; i++) {
@@ -96,10 +95,11 @@ function createStardocObject(stardocObject, options) {
     });
   }
 
-  object.id = options.id;
-  object.title = options.title || null;
+  object.id = options.parameters.id;
+  object.title = options.parameters.title || null;
   object.description = options.description || null;
   object.markup = options.markup || null;
+  object.parameters = options.parameters;
 
   return object;
 }
