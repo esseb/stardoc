@@ -45,7 +45,8 @@ function createStardoc(stardocBlocks) {
     createStardocObject(stardocObject, {
       description: block.description,
       parameters: block.parameters,
-      markup: block.markup
+      markup: block.markup,
+      directory: block.directory
     });
   });
 
@@ -99,6 +100,7 @@ function createStardocObject(stardocObject, options) {
   object.title = options.parameters.title || null;
   object.description = options.description || null;
   object.markup = options.markup || null;
+  object.directory = options.directory || null;
   object.parameters = options.parameters;
 
   return object;
@@ -148,7 +150,6 @@ function getStardocBlocks(filePath, cb) {
   });
 }
 
-
 function readMarkup(dirname, stardocBlock, cb) {
   if (!stardocBlock.parameters.markup) {
       cb(null, stardocBlock);
@@ -176,6 +177,7 @@ function readMarkup(dirname, stardocBlock, cb) {
         return;
       }
 
+      stardocBlock.directory = path.resolve(dirname);
       stardocBlock.markup = data;
 
       cb(null, stardocBlock);
